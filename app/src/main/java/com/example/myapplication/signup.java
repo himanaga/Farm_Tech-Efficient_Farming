@@ -1,56 +1,60 @@
 package com.example.myapplication;
 
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
-import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseAuth;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthCredential;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
-
-import javax.annotation.Nullable;
-
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.common.SignInButton;
-
-import java.util.List;
-import java.util.Arrays;
+import java.util.Map;
 
 public class signup extends AppCompatActivity {
-    SignInButton signInButton;
-    TextView txtMarquee;
+    EditText name, email, password, phone, address;
+    Button signUpBtn;
+    TextView login;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestore;
+    FirebaseStorage storage;
+    StorageReference storageRef;
+    ImageView profileImage;
+    Uri selectedImageUri;
 
-    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
-            new FirebaseAuthUIActivityResultContract(),
-            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
-                @Override
-                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
-                    onSignInResult(result);
+    private final ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    selectedImageUri = result.getData().getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                        profileImage.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
     );
@@ -59,10 +63,28 @@ public class signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        signInButton = findViewById(R.id.gSignInBtn);
-        txtMarquee = (TextView) findViewById(R.id.marqueeText);
-        txtMarquee.setSelected(true);
 
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        phone = findViewById(R.id.phone);
+        address = findViewById(R.id.address);
+        signUpBtn = findViewById(R.id.signupBtn);
+        profileImage = findViewById(R.id.profileImage);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+
+        login = findViewById(R.id.textView17);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(signup.this, login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -71,56 +93,135 @@ public class signup extends AppCompatActivity {
             return; // Finish the current activity to prevent going back to it
         }
 
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(signup.this, "Button Clicked", Toast.LENGTH_SHORT).show();
-                // Choose authentication providers
-                List<AuthUI.IdpConfig> providers = Arrays.asList(
-                        new AuthUI.IdpConfig.EmailBuilder().build(),
-                        new AuthUI.IdpConfig.PhoneBuilder().build(),
-                        new AuthUI.IdpConfig.GoogleBuilder().build());
-
-                Intent signInIntent = AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build();
-                signInLauncher.launch(signInIntent);
+                Intent pickImageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickImageLauncher.launch(pickImageIntent);
             }
         });
 
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userName = name.getText().toString().trim();
+                String userEmail = email.getText().toString().trim();
+                String userPassword = password.getText().toString().trim();
+                String userPhone = phone.getText().toString().trim();
+                String userAddress = address.getText().toString().trim();
 
+                // Perform user registration with email and password
+                firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // User registration successful
+                                    Toast.makeText(signup.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+
+                                    // Get the user ID of the registered user
+                                    String userId = firebaseAuth.getCurrentUser().getUid();
+
+                                    // Upload the image to Firebase Storage
+                                    uploadImageToStorage(userId, userName, userEmail, userPhone, userAddress);
+                                } else {
+                                    // User registration failed
+                                    Toast.makeText(signup.this, "Registration Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
+    }
+
+    private void uploadImageToStorage(String userId, String userName, String userEmail, String userPhone, String userAddress) {
+        if (selectedImageUri != null) {
+            StorageReference imageRef = storageRef.child("profile_images").child(userId);
+
+            imageRef.putFile(selectedImageUri)
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Image uploaded successfully
+                                imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> uriTask) {
+                                        if (uriTask.isSuccessful()) {
+                                            // Get the download URL
+                                            Uri downloadUri = uriTask.getResult();
+
+                                            // Create a new document in the "user" collection with the user's ID
+                                            DocumentReference userDocumentRef = firestore.collection("user").document(userId);
+
+                                            // Create a data object with user details
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("profileUserName", userName);
+                                            user.put("profileUserEmail", userEmail);
+                                            user.put("profileUserPhone", userPhone);
+                                            user.put("profileUserAddress", userAddress);
+                                            user.put("profileImageUrl", downloadUri.toString());
+
+                                            // Set the data in the document
+                                            userDocumentRef.set(user)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Intent intent = new Intent(signup.this, MainActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            } else {
+                                                                // Document creation failed
+                                                                Toast.makeText(signup.this, "Error creating user document", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                        } else {
+                                            // Failed to get download URL
+                                            Toast.makeText(signup.this, "Error getting download URL", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } else {
+                                // Image upload failed
+                                Toast.makeText(signup.this, "Error uploading image", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            // If no image is selected, proceed without uploading an image
+            // Create a new document in the "user" collection with the user's ID
+            DocumentReference userDocumentRef = firestore.collection("user").document(userId);
+
+            // Create a data object with user details
+            Map<String, Object> user = new HashMap<>();
+            user.put("profileUserName", userName);
+            user.put("profileUserEmail", userEmail);
+            user.put("profileUserPhone", userPhone);
+            user.put("profileUserAddress", userAddress);
+
+            // Set the data in the document
+            userDocumentRef.set(user)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(signup.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // Document creation failed
+                                Toast.makeText(signup.this, "Error creating user document", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
     }
 
     private void startMainActivity(FirebaseUser user) {
         Intent intent = new Intent(signup.this, MainActivity.class);
-        intent.putExtra("profilePic", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "");
-        intent.putExtra("userName", user.getDisplayName());
-        intent.putExtra("userEmail", user.getEmail());
-        intent.putExtra("userPhone",user.getPhoneNumber());
         startActivity(intent);
         finish();
-    }
-
-
-    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
-        IdpResponse response = result.getIdpResponse();
-        if (result.getResultCode() == RESULT_OK) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                String userName = user.getDisplayName();
-                String userEmail = user.getEmail();
-                String userphone = user.getPhoneNumber();
-                String userUid = user.getUid();
-                String photoUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "";
-                String message = "User Logged in\nName: " + userName + "\nEmail: " + userEmail + "\nUID: " + userUid + "\nphone" + userphone;
-
-                startMainActivity(user);
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(this, "Some Error Broo", Toast.LENGTH_SHORT).show();
-        }
     }
 }
