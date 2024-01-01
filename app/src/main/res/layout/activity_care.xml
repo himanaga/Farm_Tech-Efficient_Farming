@@ -16,22 +16,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageButton"
-            android:layout_width="392dp"
-            android:layout_height="291dp"
-            android:contentDescription="care"
-            android:src="@drawable/care"
-            android:backgroundTint="@color/lavender"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView15"
+            android:layout_width="390dp"
+            android:layout_height="232dp"
+            android:paddingRight="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
+            app:layout_constraintVertical_bias="0.189"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/care" />
+</LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,15 +73,29 @@
                 android:layout_height="53dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="263dp"
-                android:drawableLeft="@drawable/mail"
                 android:gravity="center"
-                android:text="Email : "
+                android:text="    Email : "
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView1"
+                android:layout_width="76dp"
+                android:layout_height="71dp"
+                android:paddingRight="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView12"
+                app:layout_constraintVertical_bias="0.189"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/mail" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -132,9 +149,8 @@
                 android:layout_width="170dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/call"
                 android:gravity="center"
-                android:text="Farmer Helpline: "
+                android:text="      Farmer Helpline: "
                 android:textSize="18dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView16"
@@ -142,14 +158,43 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView12"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="62dp"
+                android:layout_height="56dp"
+                android:paddingRight="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView15"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView15"
+                app:layout_constraintVertical_bias="0.399"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/call" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView2"
+                android:layout_width="65dp"
+                android:layout_height="72dp"
+                android:paddingRight="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView16"
+                app:layout_constraintVertical_bias="0.563"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/call" />
+
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="197dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="19dp"
-                android:drawableLeft="@drawable/call"
                 android:gravity="center"
-                android:text="National Helpline:"
+                android:text="     National Helpline:"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/textView11"

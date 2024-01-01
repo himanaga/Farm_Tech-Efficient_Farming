@@ -13,8 +13,26 @@ public class Farm implements Serializable {
       private String Title;
       private int numberInCart;
 
+public  Farm(){
 
-    public Farm() {
+}
+    public Farm(String title, double price, int numberInCart, int categoryId, String description, boolean farm, int Id, String imagePath, int priceId, double star) {
+        this.Title = title;
+        this.Price = price;
+        this.numberInCart = numberInCart;
+        this.CategoryId = categoryId;
+        this.Description = description;
+        this.Farm = farm;
+        this.Id = Id;
+        this.ImagePath = imagePath;
+        this.PriceId = priceId;
+        this.Star = star;
+    }
+
+    public Farm(String title, double price, int numberInCart) {
+        this.Title = title;
+        this.Price = price;
+        this.numberInCart = numberInCart;
     }
     @Override
     public String toString(){
@@ -49,8 +67,8 @@ public class Farm implements Serializable {
         return Id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(int Id) {
+        Id = Id;
     }
 
     public double getPrice() {

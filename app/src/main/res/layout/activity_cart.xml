@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
+    android:layout_gravity="center"
     android:layout_height="match_parent"
     tools:context=".cart">
 
@@ -27,6 +28,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:padding="10dp"
         android:paddingStart="10dp">
 
@@ -34,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="center"
             android:padding="10dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -101,7 +104,7 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="378dp"
+                android:layout_width="358dp"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -237,29 +240,29 @@
                     app:layout_constraintStart_toStartOf="parent" />
                 <!-- Add these to your layout -->
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RadioGroup
+                android:id="@+id/paymentRadioGroup"
+                android:layout_width="362dp"
+                android:layout_height="107dp"
+                android:layout_marginTop="8dp">
+
                 <RadioButton
                     android:id="@+id/radioCashOnDelivery"
-                    android:layout_width="wrap_content"
+                    android:layout_width="148dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="37dp"
-                    android:layout_marginBottom="4dp"
-                    android:checked="true"
-                    android:text="Cash on Delivery"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:layout_gravity="center"
+                    android:text="Cash on Delivery" />
 
                 <RadioButton
                     android:id="@+id/radioUpiPayment"
-                    android:layout_width="146dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="UPI Payment"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="UPI Payment" />
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </RadioGroup>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/placeorder"
@@ -270,6 +273,8 @@
                 android:layout_marginEnd="72dp"
                 android:background="@drawable/bar"
                 android:text="Place your order " />
+
+
         </LinearLayout>
     </ScrollView>
 

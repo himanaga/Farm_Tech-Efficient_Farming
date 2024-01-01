@@ -16,6 +16,6 @@ public class splash extends AppCompatActivity {
             public void run() {
                 startActivity(new Intent(getApplicationContext(), login.class));
             }
-        }, 1210);
+        }, 6210);
     }
 }

@@ -50,7 +50,7 @@ public class signup2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup2);
         signInButton = findViewById(R.id.gSignInBtn);
         txtMarquee = findViewById(R.id.marqueeText);
         txtMarquee.setSelected(true);

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/news"
-        android:icon="@drawable/news"
+        android:icon="@drawable/newss"
         android:contentDescription="news"
         android:fontFamily="cursive"
         android:title="NEWS"
@@ -20,5 +20,11 @@
         android:fontFamily="cursive"
         android:icon="@drawable/customer_care"
         android:title="Customer Care" />
+
+    <item
+        android:id="@+id/orderDetailsTextView"
+        android:fontFamily="cursive"
+        android:icon="@drawable/orde"
+        android:title="Order"/>
 
 </menu>

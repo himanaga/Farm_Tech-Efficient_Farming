@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class profile2 extends AppCompatActivity {
-    Button logout;
+    Button logout,orders;
     TextView userNaam, userEmaail, userphone, adrees; // Added TextView for userAddress
     ImageView profilePicHere;
     FirebaseAuth firebaseAuth;
@@ -66,6 +66,7 @@ public class profile2 extends AppCompatActivity {
         Toast.makeText(this, "This is Profile Page Bro", Toast.LENGTH_SHORT).show();
 
         logout = findViewById(R.id.logout);
+        orders = findViewById(R.id.button4);
         userEmaail = findViewById(R.id.userEmaail);
         userNaam = findViewById(R.id.userName);
         userphone = findViewById(R.id.userphone2);
@@ -126,6 +127,14 @@ public class profile2 extends AppCompatActivity {
             public void onClick(View v) {
                 firebaseAuth.signOut();
                 Intent intent = new Intent(profile2.this, signup.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profile2.this, orders.class);
                 startActivity(intent);
                 finish();
             }

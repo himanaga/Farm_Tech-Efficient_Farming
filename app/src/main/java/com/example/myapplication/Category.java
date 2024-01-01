@@ -1,18 +1,18 @@
 package com.example.myapplication;
 
 public class Category {
-    private int id;
+    private int Id;
     private String ImagePath;
      private String  Name;
 
     public Category() {
     }
     public int getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
     public String getImagePath() {

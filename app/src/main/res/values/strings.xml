@@ -19,6 +19,7 @@
     <string name="b8">addToCartButton8</string>
     <string name="b9">addToCartButton9</string>
     <string name="b10">addToCartButton10</string>
-
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
 
 </resources>

@@ -4,6 +4,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.1.4'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
 
+        //lotie animation
+        def lottieVersion = "3.4.0"
     }
     repositories {
         google()

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -26,7 +26,6 @@ android {
         }
     }
     buildFeatures{
-
         viewBinding true
     }
     compileOptions {
@@ -46,6 +45,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.3.0'
     implementation 'com.google.firebase:firebase-firestore:24.10.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -92,5 +93,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.4.0' 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.8'
+
+    //splash
+    implementation 'com.airbnb.android:lottie:3.7.0'
+    //razorpay
+    implementation 'com.razorpay:checkout:1.6.33'
+    //lotie animation
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 }

@@ -104,6 +104,7 @@
             <EditText
                 android:id="@+id/usernameOrEmailEditText"
                 android:layout_width="match_parent"
+                android:textColor="#BD0F0F"
                 android:layout_height="wrap_content"
                 android:hint="Username or Email" />
 
@@ -122,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:textColor="#B11313"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
