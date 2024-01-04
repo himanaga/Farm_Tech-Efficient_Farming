@@ -38,13 +38,21 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
@@ -57,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private TextView navNameTextView;
     private ImageView navprofileImageView;
+    //order
+
+    private TextView o_name,o_quantity,o_price;
+    private CircleImageView o_image;
+    private RecyclerView recyclerView;
+    private List<Order2> ordersList;
+    private orderAdapter2 orderAdapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Category");
-                Query query = databaseReference.orderByChild("Id").equalTo(4);
+                Query query = databaseReference.orderByChild("Id").equalTo(3);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -176,23 +191,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding.title4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Category");
-                Query query = databaseReference.orderByChild("Id").equalTo(5);
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Price");
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Category category = snapshot.getValue(Category.class);
-                            if (category != null) {
+                            Worker worker = snapshot.getValue(Worker.class);
+                            if (worker != null) {
                                 // Handle the retrieved data, e.g., start a new activity
-                                Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                                intent.putExtra("CategoryId", category.getId());
-                                intent.putExtra("CategoryName", category.getName());
+                                Intent intent = new Intent(MainActivity.this, workers.class);
                                 startActivity(intent);
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -200,6 +212,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
             }
         });
+
+        //order
+        o_image = findViewById(R.id.o_image);
+        o_name = findViewById(R.id.o_name);
+        o_price = findViewById(R.id.o_price);
+        o_quantity = findViewById(R.id.o_quantity);
+        recyclerView = findViewById(R.id.orderview);
+
+        // Initialize orders list and adapter
+      /*    ordersList = new ArrayList<>();
+        orderAdapter2 = new orderAdapter2(ordersList, this);*/
+      RecyclerView recyclerView = findViewById(R.id.order2list);
+        ArrayList<Order2> ordersList = new ArrayList<>();
+        orderAdapter2 orderAdapter2 = new orderAdapter2(ordersList);
+        /*
+        recyclerView.setAdapter(orderAdapter2);*/
+    /*    binding.orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    String userId = currentUser.getUid();
+
+                    CollectionReference ordersCollection = FirebaseFirestore.getInstance().collection("orders");
+                    ordersCollection.whereEqualTo("userId", userId).get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            ordersList.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String orderId = document.getId();
+                                String title = document.getString("title");
+                                Double price = document.getDouble("price");
+                                Long quantity = document.getLong("numberInCart");
+                                String image = document.getString("imagePath");
+                                // Check for null values
+                                if (title != null && price != null && quantity != null && image != null) {
+                                    Order2 order = new Order2(image, title, price, quantity);
+                                    ordersList.add(order);
+                                }
+                            }
+
+                            // Notify the adapter after all items are added
+                            orderAdapter2.notifyDataSetChanged();
+
+                            // Start the orders2 activity
+                            Intent intent = new Intent(MainActivity.this, orders2.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+        });*/
+
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.news);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -215,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(), care.class));
                 return true;
             } else if (itemId == R.id.orderDetailsTextView) {
-                startActivity(new Intent(getApplicationContext(), orders.class));
+                startActivity(new Intent(getApplicationContext(), orders2.class));
                 return true;
             }
             return false;
@@ -299,7 +365,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             dialog.dismiss();
                         }
                     });
-
             AlertDialog dialog = builder.create();
             dialog.show();
         } else if (item.getItemId() == R.id.nav_logout) {
@@ -367,4 +432,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
            startActivity(intent);
        }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
+
+
+
 }

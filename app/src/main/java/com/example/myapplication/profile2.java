@@ -66,7 +66,6 @@ public class profile2 extends AppCompatActivity {
         Toast.makeText(this, "This is Profile Page Bro", Toast.LENGTH_SHORT).show();
 
         logout = findViewById(R.id.logout);
-        orders = findViewById(R.id.button4);
         userEmaail = findViewById(R.id.userEmaail);
         userNaam = findViewById(R.id.userName);
         userphone = findViewById(R.id.userphone2);
@@ -131,14 +130,7 @@ public class profile2 extends AppCompatActivity {
                 finish();
             }
         });
-        orders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(profile2.this, orders.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -151,6 +143,9 @@ public class profile2 extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.customer) {
                 startActivity(new Intent(getApplicationContext(), care.class));
+                return true;
+            }else if (itemId == R.id.orderDetailsTextView) {
+                startActivity(new Intent(getApplicationContext(), orders2.class));
                 return true;
             }
             return false;

@@ -37,7 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.viewholder> {
     @Override
     public void onBindViewHolder(@NonNull ListAdapter.viewholder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
-        holder.priceTxt.setText("l"+items.get(position).getPrice());
+        holder.priceTxt.setText("₹"+items.get(position).getPrice());
         holder.starTxt.setText(String.valueOf(items.get(position).getStar()));
         Glide.with(context)
                 .load(items.get(position).getImagePath())

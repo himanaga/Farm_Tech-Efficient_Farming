@@ -29,13 +29,19 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.databinding.ActivityOrdersBinding;
 import com.example.myapplication.ui.main.MainFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class orders extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     private RecyclerView recyclerView;
@@ -44,11 +50,15 @@ public class orders extends AppCompatActivity implements NavigationView.OnNaviga
     private DrawerLayout drawerLayout;
     private ImageView navprofileImageView;
     private TextView navNameTextView;
+    private ActivityOrdersBinding binding;
+    private TextView o_name,o_quantity,o_price;
+    private CircleImageView o_image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_orders);
-        order=findViewById(R.id.orderDetailsTextView);
+        binding = ActivityOrdersBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        order = findViewById(R.id.orderDetailsTextView);
 
         recyclerView = findViewById(R.id.orderview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -57,10 +67,10 @@ public class orders extends AppCompatActivity implements NavigationView.OnNaviga
         // Retrieve order details from intent
         List<Farm> orderItems = (List<Farm>) getIntent().getSerializableExtra("orderItems");
         if (orderItems != null) {
-        // Set up the RecyclerView adapter
-        adapter = new orderAdapter(orderItems);
-        recyclerView.setAdapter(adapter);
-        order.setVisibility(View.GONE);
+            // Set up the RecyclerView adapter
+            adapter = new orderAdapter(orderItems);
+            recyclerView.setAdapter(adapter);
+            order.setVisibility(View.GONE);
         } else {
             order.setVisibility(View.VISIBLE);
         }
@@ -109,6 +119,57 @@ public class orders extends AppCompatActivity implements NavigationView.OnNaviga
                 }
             });
         }
+
+
+        //order trail1
+        /*
+        o_image = findViewById(R.id.o_image);
+        o_name = findViewById(R.id.o_name);
+        o_price = findViewById(R.id.o_price);
+        o_quantity = findViewById(R.id.o_quantity);
+
+         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("orders").document("items");
+            documentReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        String title = document.getString("title");
+                        String price = document.getString("price");
+                        String quantity = document.getString("numberInCart");
+                        String image = document.getString("imagePath");
+
+                        Glide.with(orders.this).load(image).into(o_image);
+                        o_name.setText(title);
+                        o_price.setText(price);
+                        o_quantity.setText(quantity);
+                    } else {
+
+                    }
+                }
+            });
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        CollectionReference ordersCollection = db.collection("orders");
+        ordersCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String orderId = document.getId();
+                    String title = document.getString("title");
+                    String price = document.getString("price");
+                    String quantity = document.getString("numberInCart");
+                    String image = document.getString("imagePath");
+
+                    Glide.with(orders.this).load(image).into(o_image);
+                    o_name.setText(title);
+                    o_price.setText(price);
+                    o_quantity.setText(quantity);
+                }
+
+            }
+        });
+        */
+
     }
 
 @Override
@@ -222,6 +283,9 @@ public void onBackPressed() {
         }
 
 }
+
+
+
 //gpt
 /*
 
@@ -335,3 +399,98 @@ public class orders extends AppCompatActivity {
 }*/
 
 
+//set 3
+/*
+
+
+package com.example.myapplication;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import com.example.myapplication.databinding.ActivityListBinding;
+import com.example.myapplication.databinding.ActivityOrdersBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+public class orders extends AppCompatActivity {
+    ActivityOrdersBinding binding;
+    FirebaseAuth mAuth;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityOrdersBinding.inflate(getLayoutInflater());
+        setContentView (binding.getRoot());
+        mAuth = FirebaseAuth.getInstance();
+        initList();
+    }
+    private void initList() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ordersCollection = db.collection("orders");
+        ArrayList<Order2> list = new ArrayList<>();
+
+        ordersCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    // Check if the "items" field exists in the document
+                    if (document.contains("items")) {
+                        // Get the "items" array from the document
+                        ArrayList<Map<String, Object>> items = (ArrayList<Map<String, Object>>) document.get("items");
+
+                        // Iterate over each item in the "items" array
+                        for (Map<String, Object> item : items) {
+                            // Extract the desired fields from each item
+                            String imagePath = (String) item.get("imagePath");
+                            String title = (String) item.get("title");
+                            Double price = (Double) item.get("price");
+                            Long numberInCart = (Long) item.get("numberInCart");
+
+                            // Create an Order2 object with the extracted fields
+                            Order2 order = new Order2(imagePath,title, price, numberInCart );
+
+                            // Add the Order2 object to the list
+                            list.add(order);
+                        }
+                    }
+                }
+
+                if (list.size() > 0) {
+                    binding.orderview.setLayoutManager(new GridLayoutManager(orders.this, 10, LinearLayoutManager.HORIZONTAL, false));
+                    RecyclerView.Adapter adapter = new orderAdapter2(list);
+                    binding.orderview.setAdapter(adapter);
+                }
+            } else {
+                Log.e("Firebase", "Error fetching data: " + task.getException());
+            }
+        });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(orders.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+
+}*/

@@ -9,48 +9,24 @@ android:id="@+id/drawer_layout"
 android:fitsSystemWindows="true"
 tools:openDrawer="start"
     tools:context=".orders">
-
-
-    <TextView
-        android:id="@+id/orderDetailsTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Order Details"
-        android:textColor="#000000"
-        android:textSize="18sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/orderview"
-        android:orientation="horizontal"
-        android:layout_width="411dp"
-        android:layout_height="581dp"
-        android:padding="10dp"
-        android:paddingTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderDetailsTextView"
-        app:layout_constraintVertical_bias="0.984" />
-
-
-        <LinearLayout
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_marginLeft="9dp"
         android:layout_marginTop="-2dp"
         android:layout_marginRight="9dp"
         android:background="@color/grey"
+        android:elevation="4dp"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:textAlignment="center"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -58,27 +34,55 @@ tools:openDrawer="start"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:logo="@drawable/crop"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:subtitleTextColor="@color/white"
-        android:elevation="4dp"
         app:title="             Farm Tech"
         app:titleTextColor="#D81B1B" />
 
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        </LinearLayout>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="404dp"
+        android:layout_marginTop="100dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.navigation.NavigationView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/nav_view"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/navheader"
-            app:menu="@menu/nav"
-            app:itemIconTint="@color/lavender"
-            app:itemTextColor="@color/lavender"/>
+        <TextView
+            android:id="@+id/orderDetailsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Order Details"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
-    </androidx.drawerlayout.widget.DrawerLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/orderview"
+            android:layout_width="411dp"
+            android:layout_height="281dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:paddingTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderDetailsTextView"
+            app:layout_constraintVertical_bias="0.984" />
+
+
+</LinearLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navheader"
+        app:menu="@menu/nav"
+        app:itemIconTint="@color/lavender"
+        app:itemTextColor="@color/lavender"/>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -8,7 +8,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/o_image"
         android:layout_width="125dp"
         android:layout_height="113dp"
         app:srcCompat="@drawable/care" />
@@ -20,20 +20,20 @@
         android:layout_gravity="right">
 
         <TextView
-            android:id="@+id/titleTextView"
+            android:id="@+id/o_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/priceTextView"
+            android:id="@+id/o_price"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/quantityTextView"
+            android:id="@+id/o_quantity"
             android:layout_width="match_parent"
             android:layout_height="31dp"
             android:layout_gravity=""

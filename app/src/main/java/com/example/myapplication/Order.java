@@ -8,6 +8,11 @@ public class Order {
     private String address;
     private List<Farm> items;
 
+        // constructor, getters, and setters
+    public Order(){
+
+        }
+
 
     public Order(String userId, String phoneNumber, String address, List<Farm> items) {
         this.userId = userId;
@@ -15,6 +20,7 @@ public class Order {
         this.address = address;
         this.items = items;
     }
+
     public String getUserId() {
         return userId;
     }
