@@ -6,16 +6,9 @@
     android:layout_height="276dp"
     android:gravity="bottom"
     android:padding="16dp"
+    android:background="@drawable/bgi"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/pro" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,8 +63,9 @@
                 android:paddingLeft="25dp"
                 android:gravity="center_horizontal"
                 android:layout_gravity="bottom"
+                android:textStyle="bold"
                 android:text="contact@farmtech.com"
-                android:textColor="#D21F1F"
+                android:textColor="#FFFCFC"
                 android:textSize="40dp" />
         </LinearLayout>
 
