@@ -150,9 +150,12 @@ public class orders2 extends AppCompatActivity implements NavigationView.OnNavig
             dialog.show();
         } else if (item.getItemId() == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(orders2.this, signup.class);
+            Intent intent = new Intent(orders2.this, login.class);
             startActivity(intent);
             finish();
+        } else if (item.getItemId() == R.id.care) {
+            startActivity(new Intent(orders2.this, care.class));
+            return true;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

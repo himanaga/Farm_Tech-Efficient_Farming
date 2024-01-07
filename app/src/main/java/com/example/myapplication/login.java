@@ -47,7 +47,12 @@ public class login extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         signup = findViewById(R.id.textView13);
 
-       signup.setOnClickListener(new View.OnClickListener() {
+        TextView marqueeText = findViewById(R.id.marqueeText);
+        marqueeText.setSelected(true);
+        marqueeText.requestFocus();
+
+
+        signup.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(login.this, signup.class);

@@ -56,6 +56,10 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
     private  String userId;
     private double total;
     private  double total2;
+    private boolean isCashOnDeliverySelected = false;
+    private boolean isUpiPaymentSelected = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +79,6 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
             }
         });
         //pay
-
         Checkout.preload(getApplicationContext());
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
@@ -88,32 +91,40 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
                         userPhone = document.getString("profileUserPhone");
                         userEmail = document.getString("profileUserEmail");
                         userAdres = document.getString("profileUserAddress");
-
                     }
                 }
             });
         }
     }
     private void initUI() {
-        RadioGroup paymentRadioGroup = findViewById(R.id.paymentRadioGroup);
-
         radioCashOnDelivery = findViewById(R.id.radioCashOnDelivery);
         radioUpiPayment = findViewById(R.id.radioUpiPayment);
         placeOrderButton = findViewById(R.id.placeorder);
-
+        radioCashOnDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCashOnDeliverySelected = true;
+                isUpiPaymentSelected = false;
+                radioUpiPayment.setChecked(false);
+            }
+        });
+        radioUpiPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCashOnDeliverySelected = false;
+                isUpiPaymentSelected = true;
+                radioCashOnDelivery.setChecked(false);
+            }
+        });
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = paymentRadioGroup.getCheckedRadioButtonId();
-                if (selectedId == -1) {
-                    // No radio button selected
-                    Toast.makeText(cart.this, "Please select a payment option", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (selectedId == R.id.radioCashOnDelivery) {
+                if (isCashOnDeliverySelected) {
                     handleCashOnDelivery();
-                } else if (selectedId == R.id.radioUpiPayment) {
-                    handleUpiPayment();
+                } else if (isUpiPaymentSelected) {
+                    handleUpiPayment(total);
+                } else {
+                    Toast.makeText(cart.this, "Please select a payment option", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -139,24 +150,35 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
         finish();
     }
 
-    private void handleUpiPayment() {
+    private void handleUpiPayment(double total3) {
         // Handle UPI Payment logic here
         Toast.makeText(cart.this, "Launching UPI Payment...", Toast.LENGTH_SHORT).show();
+     /*   RazorpayClient razorpay = new RazorpayClient("rzp_test_gxgjYLbq58RuG1", "Gy14sbVUYF1rCkpSn6w5EUli");
 
+        JSONObject orderRequest = new JSONObject();
+        orderRequest.put("amount", 500);
+        orderRequest.put("currency", "INR");
+        orderRequest.put("receipt", "order_rcptid_11");
+
+        Order order = razorpay.Orders.create(orderRequest);
+     catch (RazorpayException e) {
+        System.out.println(e.getMessage());
+    }
+*/
         Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_Mp7AUEHoTYHHZS");
+        checkout.setKeyID("rzp_test_gxgjYLbq58RuG1");
         checkout.setImage(R.drawable.logo);
-
+        final cart activity = this;
         try {
             JSONObject options = new JSONObject();
 
-            options.put("name", "Farm Tech");
-            options.put("description", "Reference No. #123456 payment gateway");
+    /*        options.put("name", "Farm Tech");
+            options.put("description", "Reference No. #123456");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
             options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
-            options.put("amount", total);
+            options.put("amount", 35);
             options.put("prefill.email", userEmail);
             options.put("prefill.contact",userPhone);
             JSONObject retryObj = new JSONObject();
@@ -164,12 +186,27 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
             retryObj.put("max_count", 4);
             options.put("retry", retryObj);
 
-            checkout.open(cart.this,options);
-        } catch(Exception e) {
+            checkout.open(cart.this,options);*/
+            options.put("name", "Merchant Name");
+            options.put("description", "Reference No. #123456");
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
+         //   options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
+            options.put("theme.color", "#3399cc");
+            options.put("currency", "INR");
+            options.put("amount",String.valueOf(total3 * 100)); //30X100
+            options.put("prefill.email", "gaurav.kumar@example.com");
+            options.put("prefill.contact","9988776655");
+            JSONObject retryObj = new JSONObject();
+            retryObj.put("enabled", true);
+            retryObj.put("max_count", 4);
+            options.put("retry", retryObj);
+            checkout.open(activity, options);
+
+        }
+        catch(Exception e) {
             e.printStackTrace();
             Log.e(TAG, "Error in starting Razorpay Checkout", e);
         }
-
 
     }
     private void addOrderToFirebase(Order order) {
@@ -184,7 +221,25 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
                     Toast.makeText(cart.this, "Error adding order to Firebase", Toast.LENGTH_SHORT).show();
                 });
     }
+    @Override
+    public void onPaymentSuccess(String s) {
+        List<Farm> cartItems = managmentCart.getListCart();
+        managmentCart.clearCart();
 
+        Order order = new Order(userId,userPhone,userAdres,cartItems);
+        order.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        order.setPhoneNumber(userPhone);
+        order.setAddress(userAdres);
+        order.setItems(cartItems);
+        addOrderToFirebase(order);
+        Toast.makeText(cart.this, "Order placed successfully (UPI payment)", Toast.LENGTH_SHORT).show();
+        Log.d("ONSUCCESS","onPaymentSuccess:  "+s );
+
+    }
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.d("ONERROR","onPaymentError:  "+s );
+    }
     //untilpay----------
 
     private void initList(){
@@ -218,8 +273,6 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
         binding.tax.setText("₹"+tax);
         binding.delivary.setText("₹"+dtax);
         binding.total.setText("₹"+total);
-
-
     }
     private void setVariable(){
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
@@ -228,28 +281,5 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
                 finish();
             }
         });
-
-
-    }
-
-    @Override
-    public void onPaymentSuccess(String s) {
-        List<Farm> cartItems = managmentCart.getListCart();
-        managmentCart.clearCart();
-
-        Order order = new Order(userId,userPhone,userAdres,cartItems);
-        order.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        order.setPhoneNumber(userPhone);
-        order.setAddress(userAdres);
-        order.setItems(cartItems);
-
-        // Add the order to the "orders" collection in Firebase
-        addOrderToFirebase(order);
-        Toast.makeText(cart.this, "Order placed successfully (UPI payment)", Toast.LENGTH_SHORT).show();
-
-    }
-    @Override
-    public void onPaymentError(int i, String s) {
-
     }
 }

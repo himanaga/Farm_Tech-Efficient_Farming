@@ -27,11 +27,12 @@
 -keepattributes JavascriptInterface
 -keepattributes *Annotation*
 
--dontwarn com.razorpay.**
--keep class com.razorpay.** {*;}
+-dontwarn com.example.**
+-keep class com.example.** {*;}
 
 -optimizations !method/inlining/*
 
 -keepclasseswithmembers class * {
-  public void handleUpiPayment*(...);
+  private void handleUpiPayment*(...);
 }
+

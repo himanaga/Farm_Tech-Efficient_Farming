@@ -41,7 +41,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.viewholder> {
         holder.starTxt.setText(String.valueOf(items.get(position).getStar()));
         Glide.with(context)
                 .load(items.get(position).getImagePath())
-                .transform(new CenterCrop(),new RoundedCorners(30))
+                .transform(new CenterCrop(),new RoundedCorners(10))
                 .into(holder.pic);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

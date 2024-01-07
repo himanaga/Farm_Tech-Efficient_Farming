@@ -25,6 +25,11 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/abo"
             android:title="About Us"/>
+        <item
+            android:id="@+id/care"
+            android:icon="@drawable/customer_care"
+            android:title="Customer Care"/>
+
     </group>
     <item
         android:title="">

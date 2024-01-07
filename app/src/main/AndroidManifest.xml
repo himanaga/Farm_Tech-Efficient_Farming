@@ -6,16 +6,13 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <queries>
-
         <!-- from https://github.com/CodingSTUFF070/RazorPay-Payment-Gateway/blob/master/app/src/main/AndroidManifest.xml -->
         <package android:name="com.google.android.apps.nbu.paisa.user" />
         <package android:name="com.phonepe.app" />
@@ -117,7 +114,7 @@
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:resource="@array/preloaded_fonts"
-            android:value="rzp_test_Mp7AUEHoTYHHZS" /> <!-- android:name="preloaded_fonts" -->
+            android:value="rzp_test_gxgjYLbq58RuG1" /> <!-- android:name="preloaded_fonts" -->
         <!-- from https://github.com/CodingSTUFF070/RazorPay-Payment-Gateway/blob/master/app/src/main/AndroidManifest.xml -->
         <activity
             android:name="com.razorpay.CheckoutActivity"

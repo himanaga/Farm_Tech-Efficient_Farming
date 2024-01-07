@@ -11,12 +11,24 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        flatDir{
+            dirs 'libs'
+        }
+        //https://dash.readme.com/project/phonepe-docs/v1/docs/android-pg-sdk-integration Top-level build file where you can add configuration options common to all sub-projects/modules.
+         maven {
+             url  "https://phonepe.mycloudrepo.io/public/repositories/phonepe-intentsdk-android"
+                }
         // other repositories...
         maven {
             url "https://repo.spring.io/release"
         }
         maven {
             url "https://repo.maven.apache.org/maven2/" // Custom Maven repository
+        }
+        //paytm
+        maven { url 'https://jitpack.io' }
+        maven {
+            url "https://artifactory.paytm.in/libs-rel..."
         }
 
     }

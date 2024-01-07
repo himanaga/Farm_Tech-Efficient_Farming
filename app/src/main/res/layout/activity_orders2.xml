@@ -11,7 +11,7 @@
     tools:context=".orders2">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -48,9 +48,8 @@
     </LinearLayout>
     <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-
-    android:orientation="vertical">
+        android:layout_marginTop="70dp"
+    android:layout_height="500dp">
 
         <ScrollView
             android:id="@+id/scrollView2"

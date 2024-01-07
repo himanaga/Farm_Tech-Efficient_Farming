@@ -124,14 +124,16 @@ public class signup extends AppCompatActivity {
 
                                     // Upload the image to Firebase Storage
                                     uploadImageToStorage(userId, userName, userEmail, userPhone, userAddress);
-                                } else {
+                                }
+                                else {
                                     // User registration failed
                                     Toast.makeText(signup.this, "Registration Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
             }
-        });
+        }
+        );
     }
 
     private void uploadImageToStorage(String userId, String userName, String userEmail, String userPhone, String userAddress) {

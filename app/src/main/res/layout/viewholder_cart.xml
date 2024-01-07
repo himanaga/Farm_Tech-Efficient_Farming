@@ -30,7 +30,7 @@
             android:layout_height="46dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
-            android:gravity="center|top"
+            android:gravity="center"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/pic"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
                 android:id="@+id/minuscart"
                 android:layout_width="56dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/bar"
@@ -83,13 +83,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/numcart"
-                android:layout_width="67dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="92dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="11dp"
                 android:gravity="center"
@@ -104,7 +104,7 @@
                 android:id="@+id/pluscart"
                 android:layout_width="54dp"
                 android:layout_height="46dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginEnd="22dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bar"

@@ -48,14 +48,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.757" />
 
+
         <Button
             android:id="@+id/logout"
-            android:layout_width="231dp"
-            android:layout_height="69dp"
+            android:layout_width="181dp"
+            android:layout_height="74dp"
             android:layout_below="@+id/profilePicHere"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="277dp"
-            android:layout_marginEnd="109dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginEnd="224dp"
             android:backgroundTint="#ff0000"
             android:drawableLeft="@drawable/logout"
             android:text="Logout"
@@ -67,6 +68,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.946" />
+
+        <Button
+            android:id="@+id/deleteAccountButton"
+            android:layout_width="208dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="85dp"
+            android:drawableLeft="@drawable/del"
+            android:textSize="18dp"
+            android:text="Delete Account" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePicHere"
