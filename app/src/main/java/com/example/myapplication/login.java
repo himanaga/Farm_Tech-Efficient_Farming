@@ -14,6 +14,8 @@ import com.google.firebase.auth.AuthResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -108,4 +110,11 @@ public class login extends AppCompatActivity {
             Toast.makeText(this,"Authentication failed",Toast.LENGTH_LONG).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+            super.onBackPressed();
+            finishAffinity();
+        }
+
 }

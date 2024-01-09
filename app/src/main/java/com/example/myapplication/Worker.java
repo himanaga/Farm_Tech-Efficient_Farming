@@ -5,7 +5,7 @@ public class Worker implements Serializable {
     private String ImagePath;
     private String Skill;
     private double Price;
-    private double Num;
+    private String Num;
 
     public Worker() {
 
@@ -43,11 +43,11 @@ public class Worker implements Serializable {
         Price = price;
     }
 
-    public double getNum() {
+    public String getNum() {
         return Num;
     }
 
-    public void setNum(double num) {
+    public void setNum(String num) {
         Num = num;
     }
 }

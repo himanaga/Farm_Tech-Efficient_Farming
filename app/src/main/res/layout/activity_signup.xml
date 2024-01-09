@@ -45,8 +45,8 @@ tools:context=".signup">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="388dp"
-        android:layout_height="573dp"
+        android:layout_width="385dp"
+        android:layout_height="603dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,8 +61,8 @@ tools:context=".signup">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
-                android:hint="Name"
                 android:autofillHints="name"
+                android:hint="Name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,8 +77,8 @@ tools:context=".signup">
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:autofillHints="emailAddress"
                 android:layout_marginBottom="8dp"
+                android:autofillHints="emailAddress"
                 android:hint="Email"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -112,8 +112,8 @@ tools:context=".signup">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
-                android:hint="Phone"
                 android:autofillHints="phone"
+                android:hint="Phone"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,22 +135,22 @@ tools:context=".signup">
 
         <Button
             android:id="@+id/signupBtn"
-            android:layout_width="241dp"
-            android:layout_height="62dp"
+            android:layout_width="246dp"
+            android:layout_height="72dp"
             android:layout_gravity="center"
             android:text="Sign Up" />
 
         <TextView
             android:id="@+id/textView17"
-            android:layout_width="303dp"
-            android:layout_height="44dp"
+            android:layout_width="291dp"
+            android:layout_height="57dp"
             android:layout_gravity="center"
             android:autoLink="all"
             android:clickable="true"
             android:gravity="center"
             android:text="login here"
             android:textColor="#DA2262"
-            android:textSize="25dp" />
+            android:textSize="30dp" />
     </LinearLayout>
 
 </LinearLayout>

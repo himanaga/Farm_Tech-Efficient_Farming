@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:layout_width="339dp"
+        android:layout_height="363dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://scheamas.android.com/tools">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/sucs"
+        android:layout_width="302dp"
+        android:layout_height="215dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sucs" />
+
+    <TextView
+        android:id="@+id/sucsmsg"
+        android:layout_width="324dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:shadowColor="#DA4949"
+        android:text="Your Transaction successful"
+        android:textColor="#1158E4"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    </LinearLayout>

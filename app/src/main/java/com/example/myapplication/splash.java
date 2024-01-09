@@ -19,16 +19,17 @@ public class splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        LottieAnimationView imageView = findViewById(R.id.animationView);
+       /* LottieAnimationView imageView = findViewById(R.id.animationView);
 
-        if (isNetworkAvailable()) {
+        if (isNetworkAvailable()) {*/
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), login.class));
                     finish();
                 }
-            }, 2210);
+            }, 1210);
+            /*
         } else {  //no internet
             imageView.setAnimation(R.raw.no_net);
         }
@@ -39,6 +40,6 @@ public class splash extends AppCompatActivity {
             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
-        return false;
+        return false;*/
     }
 }

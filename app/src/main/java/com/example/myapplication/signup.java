@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -88,9 +89,8 @@ public class signup extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // User is signed in, open MainActivity
             startMainActivity(user);
-            return; // Finish the current activity to prevent going back to it
+            return;
         }
 
         profileImage.setOnClickListener(new View.OnClickListener() {
@@ -135,17 +135,14 @@ public class signup extends AppCompatActivity {
         }
         );
     }
-
     private void uploadImageToStorage(String userId, String userName, String userEmail, String userPhone, String userAddress) {
         if (selectedImageUri != null) {
             StorageReference imageRef = storageRef.child("profile_images").child(userId);
-
             imageRef.putFile(selectedImageUri)
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             if (task.isSuccessful()) {
-                                // Image uploaded successfully
                                 imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Uri> uriTask) {
@@ -153,7 +150,6 @@ public class signup extends AppCompatActivity {
                                             // Get the download URL
                                             Uri downloadUri = uriTask.getResult();
 
-                                            // Create a new document in the "user" collection with the user's ID
                                             DocumentReference userDocumentRef = firestore.collection("user").document(userId);
 
                                             // Create a data object with user details
@@ -164,7 +160,6 @@ public class signup extends AppCompatActivity {
                                             user.put("profileUserAddress", userAddress);
                                             user.put("profileImageUrl", downloadUri.toString());
 
-                                            // Set the data in the document
                                             userDocumentRef.set(user)
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
@@ -186,24 +181,19 @@ public class signup extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                // Image upload failed
                                 Toast.makeText(signup.this, "Error uploading image", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
         } else {
-            // If no image is selected, proceed without uploading an image
-            // Create a new document in the "user" collection with the user's ID
             DocumentReference userDocumentRef = firestore.collection("user").document(userId);
 
-            // Create a data object with user details
             Map<String, Object> user = new HashMap<>();
             user.put("profileUserName", userName);
             user.put("profileUserEmail", userEmail);
             user.put("profileUserPhone", userPhone);
             user.put("profileUserAddress", userAddress);
 
-            // Set the data in the document
             userDocumentRef.set(user)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -226,4 +216,10 @@ public class signup extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    @Override
+    public void onBackPressed() {
+            super.onBackPressed();
+            finishAffinity();
+        }
+
 }

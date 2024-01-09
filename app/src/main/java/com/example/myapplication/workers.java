@@ -2,10 +2,12 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,8 +42,6 @@ public class workers extends AppCompatActivity{
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference( "Price");
         ArrayList<Worker> list=new ArrayList<>();
         binding.progressBar.setVisibility(View.VISIBLE);
-
-
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,11 +67,19 @@ public class workers extends AppCompatActivity{
 
     private void getIntentExtra() {
         binding.title.setText("Workers Page");
-        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+        binding.backBtnw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                finish();
+               startActivity(new Intent(workers.this,MainActivity.class));
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+            super.onBackPressed();
+        startActivity(new Intent(workers.this,MainActivity.class));
+        }
+
+
 }

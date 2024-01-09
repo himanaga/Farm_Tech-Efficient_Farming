@@ -55,177 +55,181 @@
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp">
 
-        <LinearLayout
-            android:layout_width="413dp"
-            android:layout_height="576dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <LinearLayout
+                android:layout_width="413dp"
+                android:layout_height="576dp"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="570dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="46dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.466"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:orientation="horizontal">
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="390dp"
-                        android:layout_height="595dp"
-                        android:layout_gravity="center"
+                        android:layout_height="570dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="46dp"
                         android:orientation="vertical">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:orientation="horizontal">
+
+
+                        </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="370dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="390dp"
+                            android:layout_height="595dp"
                             android:layout_gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:orientation="vertical">
 
-                            <Button
-                                android:id="@+id/title"
-                                android:layout_width="match_parent"
+
+                            <LinearLayout
+                                android:layout_width="370dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="25dp"
-                                android:backgroundTint="#36FB3A70"
-                                android:drawableLeft="@drawable/tractor"
-                                android:text="Tractors"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                android:padding="10dp">
 
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.495"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <Button
+                                    android:id="@+id/title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="25dp"
+                                    android:backgroundTint="#36FB3A70"
+                                    android:drawableLeft="@drawable/tractor"
+                                    android:text="Tractors"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
 
-                            <Button
-                                android:id="@+id/title1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="25dp"
-                                android:backgroundTint="@color/crops"
-                                android:drawableLeft="@drawable/crops"
-                                android:text="Crops"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.495"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.495"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <Button
+                                    android:id="@+id/title1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="25dp"
+                                    android:backgroundTint="@color/crops"
+                                    android:drawableLeft="@drawable/crops"
+                                    android:text="Crops"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
 
-                            <Button
-                                android:id="@+id/title2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="25dp"
-                                android:backgroundTint="@color/fertilizers"
-                                android:drawableLeft="@drawable/fertilizer"
-                                android:text="Fertilizers"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.495"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.495"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <Button
-                                android:id="@+id/title3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="25dp"
-                                android:backgroundTint="@color/equip"
-                                android:drawableLeft="@drawable/equip"
-                                android:text="Tractor Equipments"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.495"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <Button
+                                    android:id="@+id/title2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="25dp"
+                                    android:backgroundTint="@color/fertilizers"
+                                    android:drawableLeft="@drawable/fertilizer"
+                                    android:text="Fertilizers"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.495"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <Button
-                                android:id="@+id/title4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="20dp"
-                                android:backgroundTint="@color/workers"
-                                android:drawableLeft="@drawable/workers"
-                                android:text="Workers"
-                                android:textSize="24sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.495"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <Button
+                                    android:id="@+id/title3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="25dp"
+                                    android:backgroundTint="@color/equip"
+                                    android:drawableLeft="@drawable/equip"
+                                    android:text="Tractor Equipments"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.495"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <Button
+                                    android:id="@+id/title4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="20dp"
+                                    android:backgroundTint="@color/workers"
+                                    android:drawableLeft="@drawable/workers"
+                                    android:text="Workers"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.495"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </LinearLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
 
-            </RelativeLayout>
-        </LinearLayout>
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigation"
-            android:layout_width="400dp"
-            android:layout_height="71dp"
-            android:background="@drawable/search_gb"
-            android:elevation="2dp"
-            app:itemIconSize="40dp"
-            app:itemIconTint="@drawable/item_selctor"
-            app:itemRippleColor="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bar" />
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigation"
+                android:layout_width="400dp"
+                android:layout_height="71dp"
+                android:background="@drawable/search_gb"
+                android:elevation="2dp"
+                app:itemIconSize="40dp"
+                app:itemIconTint="@drawable/item_selctor"
+                app:itemRippleColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/bar" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -235,4 +239,11 @@
         app:menu="@menu/nav"
         app:itemIconTint="@color/lavender"
         app:itemTextColor="@color/lavender"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/no_net"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no_net" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -37,7 +37,7 @@ public class workerAdapter extends RecyclerView.Adapter<workerAdapter.viewholder
         holder.name.setText(items.get(position).getName());
         holder.priceTxt.setText("₹"+items.get(position).getPrice()+"per hour");
         holder.skill.setText(items.get(position).getSkill());
-        holder.phn.setText("call"+items.get(position).getNum());
+        holder.phn.setText(items.get(position).getNum());
         Glide.with(context)
                 .load(items.get(position).getImagePath())
                 .transform(new CenterCrop(),new RoundedCorners(30))

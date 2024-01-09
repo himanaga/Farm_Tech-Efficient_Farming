@@ -9,12 +9,6 @@
             android:onClick="profile"
             android:iconTint="@color/white"
             android:icon="@drawable/acc1"/>
-        <item
-            android:id="@+id/action_search"
-            android:title="Search"
-            android:icon="@drawable/search"
-            app:showAsAction="ifRoom|collapseActionView"
-            app:actionViewClass="androidx.appcompat.widget.SearchView" />
     </group>
 
 </menu>

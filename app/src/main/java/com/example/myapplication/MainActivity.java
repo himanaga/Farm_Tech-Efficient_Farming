@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Log;
 import android.view.Menu;
@@ -18,10 +20,11 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.view.KeyEvent;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.ui.main.MainFragment;
-
+import android.content.Context;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private TextView navNameTextView;
     private ImageView navprofileImageView;
+    private LottieAnimationView animationView;
     //order
 
     private TextView o_name,o_quantity,o_price;
@@ -78,6 +82,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+         animationView = findViewById(R.id.no_net);
+        if (isNetworkConnected()) {
+            setupNormalContent();
+            animationView.setVisibility(View.GONE);
+        } else {
+            animationView.setVisibility(View.VISIBLE);
+            hideAllContent();
+        }
 
 
         binding.title.setOnClickListener(new View.OnClickListener() {
@@ -356,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(Intent.createChooser(shareIntent, "Share the app via"));
             return true;
         } else if (item.getItemId() == R.id.nav_about) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+          /*  AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("About App")
                     .setMessage("This is a sample app. Version 1.0")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -366,7 +380,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     });
             AlertDialog dialog = builder.create();
-            dialog.show();
+            dialog.show();*/
+            Intent intent = new Intent(MainActivity.this, aboutus.class);
+            startActivity(intent);
         } else if (item.getItemId() == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(MainActivity.this, login.class);
@@ -384,37 +400,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        if (searchView != null) {
-            searchView.setQueryHint("Search Here...");
-
-            searchView.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
-                        // Perform search when Enter key is pressed
-                        String searchText = searchView.getQuery().toString();
-                        searcbar(searchText);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    searcbar(query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    searcbar(newText);
-                    return false;
-                }
-            });
-        }
         //profile
         MenuItem profile = menu.findItem(R.id.profile);
 
@@ -426,6 +411,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Intent goToProfilePage = new Intent(this, profile2.class);
         startActivity(goToProfilePage);
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
+    private void hideAllContent() {
+        binding.title.setVisibility(View.GONE);
+        binding.title1.setVisibility(View.GONE);
+        binding.title2.setVisibility(View.GONE);
+        binding.title3.setVisibility(View.GONE);
+        binding.title4.setVisibility(View.GONE);
+    }
+    private void setupNormalContent() {
+        binding.title.setVisibility(View.VISIBLE);
+        binding.title1.setVisibility(View.VISIBLE);
+        binding.title2.setVisibility(View.VISIBLE);
+        binding.title3.setVisibility(View.VISIBLE);
+        binding.title4.setVisibility(View.VISIBLE);
     }
    private  void searcbar(String searchText){
        if (!searchText.isEmpty()) {

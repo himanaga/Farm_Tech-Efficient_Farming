@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="center_horizontal"
     android:layout_height="200dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="match_parent">
 
@@ -26,52 +27,59 @@
 
         <TextView
             android:id="@+id/titlecart"
-            android:layout_width="216dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="12dp"
+            android:layout_width="195dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="TextView"
+            android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/pic"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/totalpricecart"
-            android:layout_width="151dp"
-            android:layout_height="59dp"
+            android:layout_width="214dp"
+            android:layout_height="74dp"
             android:layout_marginTop="60dp"
-            android:layout_marginEnd="44dp"
-            android:gravity="center"
+            android:layout_marginEnd="40dp"
+            android:gravity="center|left"
             android:text="TextView"
+            android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/pic"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/pricecart"
-            android:layout_width="113dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="126dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="TextView"
+            android:textSize="19dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pic" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="246dp"
-            android:layout_height="67dp"
+            android:layout_width="236dp"
+            android:layout_height="64dp"
             android:layout_marginStart="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/pic">
 
             <TextView
                 android:id="@+id/minuscart"
                 android:layout_width="56dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="1dp"
+                android:layout_marginStart="22dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/bar"
@@ -87,8 +95,8 @@
 
             <TextView
                 android:id="@+id/numcart"
-                android:layout_width="92dp"
-                android:layout_height="45dp"
+                android:layout_width="105dp"
+                android:layout_height="52dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="11dp"
@@ -105,7 +113,7 @@
                 android:layout_width="54dp"
                 android:layout_height="46dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="9dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bar"
                 android:gravity="center"
@@ -115,7 +123,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.571"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/numcart" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

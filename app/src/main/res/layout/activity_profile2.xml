@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="center"
     tools:context=".profile">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,7 +26,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="640dp">
+        android:layout_height="640dp"
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_marginBottom="12dp"
+        android:gravity="center">
+
 
         <TextView
             android:id="@+id/userphone2"
@@ -33,8 +38,8 @@
             android:layout_height="63dp"
             android:layout_below="@+id/profilePicHere"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="77dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="118dp"
             android:gravity="center"
             android:hint="Phone Number"
             android:padding="2dp"
@@ -48,15 +53,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.757" />
 
-
         <Button
             android:id="@+id/logout"
             android:layout_width="181dp"
             android:layout_height="74dp"
-            android:layout_below="@+id/profilePicHere"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="280dp"
+            android:layout_alignParentBottom="true"
             android:layout_marginEnd="224dp"
+            android:layout_marginBottom="38dp"
             android:backgroundTint="#ff0000"
             android:drawableLeft="@drawable/logout"
             android:text="Logout"
@@ -76,20 +80,20 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="85dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="39dp"
             android:drawableLeft="@drawable/del"
-            android:textSize="18dp"
-            android:text="Delete Account" />
+            android:text="Delete Account"
+            android:textSize="18dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePicHere"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="242dp"
+            android:layout_height="204dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="206dp"
+            android:layout_marginEnd="164dp"
             android:scaleType="centerCrop"
             android:src="@drawable/acc"
             app:circularflow_viewCenter="@color/black"
@@ -113,7 +117,7 @@
             android:hint="Name"
             android:padding="2dp"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
@@ -127,8 +131,8 @@
             android:layout_height="68dp"
             android:layout_below="@+id/profilePicHere"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="36dp"
             android:gravity="center"
             android:hint="Email"
             android:padding="2dp"
@@ -148,8 +152,8 @@
             android:layout_height="90dp"
             android:layout_below="@+id/profilePicHere"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="146dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="199dp"
             android:gravity="center"
             android:hint="Address"
             android:padding="2dp"

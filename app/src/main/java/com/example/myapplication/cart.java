@@ -3,6 +3,7 @@ package com.example.myapplication;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AlertDialog;
+import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,10 +19,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.myapplication.databinding.ActivityCartBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -132,7 +136,9 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
     private void handleCashOnDelivery() {
         List<Farm> cartItems = managmentCart.getListCart();
         managmentCart.clearCart();
-        // Creating Order object
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // Creating Order object
         Order order =   new Order(userId,userPhone,userAdres,cartItems);
         order.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         order.setPhoneNumber(userPhone);
@@ -144,14 +150,17 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
 
         String orderDetails = "Order placed successfully (Cash on Delivery)\nOrder of: ₹" + total2;
         Toast.makeText(cart.this, "Order placed successfully (Cash on Delivery)", Toast.LENGTH_SHORT).show();
-        Intent orderDetailsIntent = new Intent(cart.this, MainActivity.class);
+      /*  Intent orderDetailsIntent = new Intent(cart.this, MainActivity.class);
         orderDetailsIntent.putExtra("orderDetails", orderDetails);
         startActivity(orderDetailsIntent);
-        finish();
+        finish();*/
+        showSuccessDialogWithDelay(orderDetails,total2);
+    } else {
+        Toast.makeText(cart.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+    }
     }
 
     private void handleUpiPayment(double total3) {
-        // Handle UPI Payment logic here
         Toast.makeText(cart.this, "Launching UPI Payment...", Toast.LENGTH_SHORT).show();
      /*   RazorpayClient razorpay = new RazorpayClient("rzp_test_gxgjYLbq58RuG1", "Gy14sbVUYF1rCkpSn6w5EUli");
 
@@ -171,7 +180,6 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
         final cart activity = this;
         try {
             JSONObject options = new JSONObject();
-
     /*        options.put("name", "Farm Tech");
             options.put("description", "Reference No. #123456");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
@@ -187,15 +195,15 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
             options.put("retry", retryObj);
 
             checkout.open(cart.this,options);*/
-            options.put("name", "Merchant Name");
+            options.put("name", "Farm Tech");
             options.put("description", "Reference No. #123456");
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
          //   options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
             options.put("amount",String.valueOf(total3 * 100)); //30X100
-            options.put("prefill.email", "gaurav.kumar@example.com");
-            options.put("prefill.contact","9988776655");
+            options.put("prefill.email",userEmail);
+            options.put("prefill.contact", userPhone);
             JSONObject retryObj = new JSONObject();
             retryObj.put("enabled", true);
             retryObj.put("max_count", 4);
@@ -225,7 +233,7 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
     public void onPaymentSuccess(String s) {
         List<Farm> cartItems = managmentCart.getListCart();
         managmentCart.clearCart();
-
+        String orderDetails = "Order placed successfully (Upi payment)\nOrder of: ₹" + total2;
         Order order = new Order(userId,userPhone,userAdres,cartItems);
         order.setUserId(FirebaseAuth.getInstance().getCurrentUser().getUid());
         order.setPhoneNumber(userPhone);
@@ -234,7 +242,7 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
         addOrderToFirebase(order);
         Toast.makeText(cart.this, "Order placed successfully (UPI payment)", Toast.LENGTH_SHORT).show();
         Log.d("ONSUCCESS","onPaymentSuccess:  "+s );
-
+        showSuccessDialogWithDelay(orderDetails,total2);
     }
     @Override
     public void onPaymentError(int i, String s) {
@@ -281,5 +289,27 @@ public class cart extends AppCompatActivity implements  PaymentResultListener {
                 finish();
             }
         });
+    }
+
+    public void showSuccessDialogWithDelay(String orderDetails,double total2) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.activity_ordersuces, null);
+        builder.setView(dialogView);
+        LottieAnimationView lottieAnimationView = dialogView.findViewById(R.id.sucs);
+        TextView messageTextView = dialogView.findViewById(R.id.sucsmsg);
+
+        lottieAnimationView.setAnimation(R.raw.sucs);
+        lottieAnimationView.playAnimation();
+        messageTextView.setText(orderDetails);
+
+        AlertDialog dialog = builder.create();
+        new Handler().postDelayed(() -> {
+            dialog.show();
+            new Handler().postDelayed(() -> {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }, 4000);
+        }, 1120);
     }
 }

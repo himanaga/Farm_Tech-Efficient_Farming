@@ -146,37 +146,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        if (searchView != null) {
-            searchView.setQueryHint("Search Here...");
-
-            searchView.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
-                        // Perform search when Enter key is pressed
-                        String searchText = searchView.getQuery().toString();
-                        searcbar(searchText);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    searcbar(query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    searcbar(newText);
-                    return false;
-                }
-            });
-        }
         //profile
         MenuItem profile = menu.findItem(R.id.profile);
 
@@ -234,7 +203,6 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
                 }
             }
         });
-
         binding.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
